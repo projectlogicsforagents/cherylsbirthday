@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function add_second_model() {
-        document.getElementById("graph-buttons-container-one").querySelector(".button").disabled = true;
+        document.getElementById("graph-buttons-container-two").querySelector(".button").disabled = true;
 
         var graph_visual_container_two = document.createElement("div");
         graph_visual_container_two.id = "graph-visual-container-two";
