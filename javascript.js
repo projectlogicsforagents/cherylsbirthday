@@ -138,6 +138,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('set_answer_button').addEventListener('click', set_real_day_div);
 
     function set_real_day_div() {
+        var previous_real_day_div = document.querySelector('.real-day-div');
+        if (previous_real_day_div) {
+            previous_real_day_div.classList.remove('real-day-div');
+        }
         var elements = document.querySelectorAll('.selected');
         elements.forEach(function(element) {
             element.classList.remove('selected');
@@ -228,11 +232,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function create_horizontal_line_between_divs(a, b) {
         var rect_a = a.getBoundingClientRect();
-        var a_center_x = rect_a.left + rect_a.width / 2;
+        var a_center_x = rect_a.left + rect_a.width / 2 + window.scrollX;
         var a_center_y = rect_a.top + rect_a.height / 2 - 1 + window.scrollY;
     
         var rect_b = b.getBoundingClientRect();
-        var b_center_x = rect_b.left + rect_b.width / 2;
+        var b_center_x = rect_b.left + rect_b.width / 2 + window.scrollX;
     
         var line_div = document.createElement('div');
         line_div.classList.add('horizontal-line-div');
