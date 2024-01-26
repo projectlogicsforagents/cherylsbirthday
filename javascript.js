@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.getElementById('date_duplicate_error').style.display = 'none';
         
-        var container = document.getElementById('graph-visual-container');
+        var container = document.getElementById('graph-visual-container-one');
         let month_div = Array.from(container.querySelectorAll('.month-div')).find(div => parseInt(div.dataset.month) === month);
 
         if (!month_div) {
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function remove_selected() {
-        var container = document.getElementById('graph-visual-container');
+        var container = document.getElementById('graph-visual-container-one');
         const possible_day_divs = Array.from(container.querySelectorAll('.possible-day-div'));
         possible_day_divs.forEach(div => div.classList.remove('selected'));
     }
@@ -141,14 +141,44 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
-    // Function to handle the button click event
-    function handleButtonClick() {
+    function add_second_model() {
+        document.getElementById("graph-buttons-container-one").querySelector(".button").disabled = true;
+
+        var graph_visual_container_two = document.createElement("div");
+        graph_visual_container_two.id = "graph-visual-container-two";
+        graph_visual_container_two.classList.add("graph-visual-container");
+        
+        var graph_ui_container = document.getElementById("graph-ui-container");
+        graph_visual_container_two.innerHTML = document.getElementById("graph-visual-container-one").innerHTML;
+        graph_ui_container.appendChild(graph_visual_container_two);
+        compute_lines();
+    }
+
+
+    function add_first_announcement() {
+        document.getElementById("graph-buttons-container-one").querySelector(".button").disabled = true;
+
         // Check for a specific condition
         if (public_announcement_one_holds()) {
             // If the condition is met, create a text message
-            var textMessage = document.createElement("p");
-            textMessage.textContent = "Albert: 'I don't know the answer, but I do know Bernard doesn't know the answer either.'"; // Replace with your message
-            document.getElementById("graph-visual-container").appendChild(textMessage);
+
+            // Create a div element and assign it the class 'public-announcement-container'
+            var container_div = document.createElement("div");
+            container_div.classList.add("public-announcement-container");
+
+            var text_message = document.createElement("p");
+            text_message.textContent = "Albert: 'I don't know the answer, but I do know Bernard doesn't know the answer either.'";
+
+            // Append the button to the container div
+            container_div.appendChild(text_message);
+            document.getElementById("graph-ui-container").appendChild(container_div);
+
+            var buttons_container_two = document.createElement("div");
+            buttons_container_two.id = "graph-buttons-container-two";
+            buttons_container_two.classList.add("graph-buttons-container");
+            document.getElementById("graph-ui-container").appendChild(buttons_container_two);
+
+            add_next_button(add_second_model, buttons_container_two);
         } else {
             // If the condition is not met, create the error container element
             var errorContainer = document.createElement("div");
@@ -161,10 +191,24 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMessage.textContent = "Public announcement 1 does not hold.";
 
             errorContainer.appendChild(errorMessage);
-            document.getElementById("graph-visual-container").appendChild(errorContainer);
+            document.getElementById("graph-buttons-container-one").appendChild(errorContainer);
         }
     }
 
+
+    function add_next_button(callback, container) {
+        // Create the Next button
+        var next_button = document.createElement("button");
+        next_button.innerHTML = "Next";
+        next_button.classList.add('button');
+
+        // Append the container div to the graph-visual-container div
+        container.appendChild(next_button);
+
+
+        // Add click event listener to the button
+        next_button.addEventListener("click", callback);
+    }
     
 
     function set_real_day_div() {
@@ -177,21 +221,13 @@ document.addEventListener('DOMContentLoaded', function() {
             element.classList.remove('selected');
             element.classList.add('real-day-div');
         });
+        document.getElementById('set_answer_button').style.display = 'none';
+
         compute_lines();
         // Set line explination to visible
         document.getElementById('line_explination').style.display = 'block';
 
-        // Create a new button element
-        var nextButton = document.createElement("button");
-        nextButton.innerHTML = "Next"; // Set the button text
-        nextButton.classList.add('button');
-        nextButton.classList.add('centered');
-
-        // Append the button to the div
-        document.getElementById("graph-visual-container").appendChild(nextButton);
-
-        // Add click event listener to the button
-        nextButton.addEventListener("click", handleButtonClick);
+        add_next_button(add_first_announcement, document.getElementById('graph-buttons-container-one'));
     }
 
     function remove_lines() {
@@ -203,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function create_horizontal_lines() {
         // Select all '.month-div' elements that are children of '.graph-visual-container'
-        const monthDivs = document.querySelectorAll('#graph-visual-container .month-div');
+        const monthDivs = document.querySelectorAll('.graph-visual-container .month-div');
     
         // Loop through each '.month-div' element
         monthDivs.forEach((monthDiv) => {
@@ -222,46 +258,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function create_vertical_lines() {
         // Select the first '.month-div' within '.graph-visual-container'
-        const container = document.querySelector('#graph-visual-container');
-        const first_month_div = document.querySelector('#graph-visual-container .month-div');
-    
-        // Select all children of 'firstMonthDiv' with a 'data-day' attribute
-        const day_divs = container.querySelectorAll('.possible-day-div');
-        console.log(day_divs);
-    
-        // Extract 'data-day' values from these elements
-        const all_possible_days = new Set(Array.from(day_divs).map(element => element.dataset.day));
-        console.log(all_possible_days);
-    
-        // Loop through each possible day
-        all_possible_days.forEach((day) => {
-            let top_day_div, bottom_day_div;
-            day = parseInt(day); 
-    
-            // Loop forward to find topDayDiv
-            for (let i = 0; i < container.children.length; i++) {
-                let month_div = container.children[i];
-                let day_divs = Array.from(month_div.querySelectorAll('.possible-day-div')); // Assuming '.possible-day-div' is the class for divs you want to search through
-                top_day_div = day_divs.find(div => parseInt(div.dataset.day) === day);
-                if (top_day_div) {
-                    break;
+        const containers = document.querySelectorAll('.graph-visual-container');
+
+        containers.forEach((container) => {
+            const first_month_div = container.querySelector('.month-div');
+        
+            // Select all children of 'firstMonthDiv' with a 'data-day' attribute
+            const day_divs = container.querySelectorAll('.possible-day-div');
+            console.log(day_divs);
+        
+            // Extract 'data-day' values from these elements
+            const all_possible_days = new Set(Array.from(day_divs).map(element => element.dataset.day));
+            console.log(all_possible_days);
+        
+            // Loop through each possible day
+            all_possible_days.forEach((day) => {
+                let top_day_div, bottom_day_div;
+                day = parseInt(day); 
+        
+                // Loop forward to find topDayDiv
+                for (let i = 0; i < container.children.length; i++) {
+                    let month_div = container.children[i];
+                    let day_divs = Array.from(month_div.querySelectorAll('.possible-day-div')); // Assuming '.possible-day-div' is the class for divs you want to search through
+                    top_day_div = day_divs.find(div => parseInt(div.dataset.day) === day);
+                    if (top_day_div) {
+                        break;
+                    }
                 }
-            }
-    
-            // Loop backward to find bottomDayDiv
-            for (let i = container.children.length - 1; i >= 0; i--) {
-                let month_div = container.children[i];
-                let day_divs = Array.from(month_div.querySelectorAll('.possible-day-div')); // Same assumption as above
-                bottom_day_div = day_divs.find(div => parseInt(div.dataset.day) === day);
-                if (bottom_day_div) {
-                    break;
+        
+                // Loop backward to find bottomDayDiv
+                for (let i = container.children.length - 1; i >= 0; i--) {
+                    let month_div = container.children[i];
+                    let day_divs = Array.from(month_div.querySelectorAll('.possible-day-div')); // Same assumption as above
+                    bottom_day_div = day_divs.find(div => parseInt(div.dataset.day) === day);
+                    if (bottom_day_div) {
+                        break;
+                    }
                 }
-            }
-    
-            // Call function to create a vertical line between the divs
-            if (top_day_div && bottom_day_div) {
-                create_vertical_line_between_divs(top_day_div, bottom_day_div);
-            }
+        
+                // Call function to create a vertical line between the divs
+                if (top_day_div && bottom_day_div) {
+                    create_vertical_line_between_divs(top_day_div, bottom_day_div);
+                }
+            });
         });
     }
     

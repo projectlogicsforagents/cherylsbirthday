@@ -64,17 +64,36 @@ p {
     border-color: #bbb; /* Border color on hover */
 }
 
-.button.centered {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+.button:disabled {
+    background-color: #f2f2f2; /* Disabled background color */
+    color: #ccc; /* Disabled text color */
+    border-color: #ccc; /* Disabled border color */
+    cursor: default; /* Default cursor for disabled state */
+    pointer-events: none; /* Prevents click events */
 }
+
+
 
 #graph-visual-container {
     height: fit-content;
     width: fit-content;
     padding: 5vh;
     /* border: 5px solid #404040; */
+}
+
+#graph-ui-container {
+    height: fit-content;
+    width: fit-content;
+}
+
+.graph-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    .button {
+        margin: 0px;
+    }
 }
 
 .day-div {
@@ -135,6 +154,13 @@ p {
     height: 100%;
     background-color: #000080;
     z-index: 0;
+}
+
+.public-announcement-container {
+    padding: 25px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
 
 .error_container {
