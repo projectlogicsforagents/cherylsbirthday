@@ -137,6 +137,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('set_answer_button').addEventListener('click', set_real_day_div);
 
+    function public_announcement_one_holds() {
+        return true;
+    }
+
+    // Function to handle the button click event
+    function handleButtonClick() {
+        // Check for a specific condition
+        if (public_announcement_one_holds()) {
+            // If the condition is met, create a text message
+            var textMessage = document.createElement("p");
+            textMessage.textContent = "Albert: 'I don't know the answer, but I do know Bernard doesn't know the answer either.'"; // Replace with your message
+            document.getElementById("graph-visual-container").appendChild(textMessage);
+        } else {
+            // If the condition is not met, create the error container element
+            var errorContainer = document.createElement("div");
+            errorContainer.className = "error_container";
+
+            var errorMessage = document.createElement("span");
+            errorMessage.id = "next_error_message";
+            errorMessage.className = "error-message";
+            errorMessage.setAttribute("role", "alert");
+            errorMessage.textContent = "Public announcement 1 does not hold.";
+
+            errorContainer.appendChild(errorMessage);
+            document.getElementById("graph-visual-container").appendChild(errorContainer);
+        }
+    }
+
+    
+
     function set_real_day_div() {
         var previous_real_day_div = document.querySelector('.real-day-div');
         if (previous_real_day_div) {
@@ -148,6 +178,20 @@ document.addEventListener('DOMContentLoaded', function() {
             element.classList.add('real-day-div');
         });
         compute_lines();
+        // Set line explination to visible
+        document.getElementById('line_explination').style.display = 'block';
+
+        // Create a new button element
+        var nextButton = document.createElement("button");
+        nextButton.innerHTML = "Next"; // Set the button text
+        nextButton.classList.add('button');
+        nextButton.classList.add('centered');
+
+        // Append the button to the div
+        document.getElementById("graph-visual-container").appendChild(nextButton);
+
+        // Add click event listener to the button
+        nextButton.addEventListener("click", handleButtonClick);
     }
 
     function remove_lines() {

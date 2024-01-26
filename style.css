@@ -64,6 +64,12 @@ p {
     border-color: #bbb; /* Border color on hover */
 }
 
+.button.centered {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
 #graph-visual-container {
     height: fit-content;
     width: fit-content;
