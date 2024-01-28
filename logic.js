@@ -8,6 +8,9 @@ var model = new MPL.Model();
 const agent_m = 'm'; // Agent m has relations in month column, knows/is told the day
 const agent_d = 'd'; // Agent d has relations in day row, knows/is told the month
 
+var true_month = null;
+var true_day = null;
+
 var _date_to_state_dict = {}; // 'Dictionary' used to convert date to state index
 
 function pop_date_to_state_dict(month, day) {
@@ -28,13 +31,6 @@ function add_date_to_model(month, day) {
     console.log("added state " + state_idx);
     console.log("states:");
     console.log(model.getStates());
-    console.log("successors of new state by agent m:");
-    console.log(model.getSuccessorsOf(state_idx, agent_m));
-    console.log("successors of new state by agent d:");
-    console.log(model.getSuccessorsOf(state_idx, agent_d));
-
-    console.log("new state knows month? " + MPL.truth(model, state_idx, know_month_wff));
-    console.log("new state knows day? " + MPL.truth(model, state_idx, know_day_wff));
 }
 
 function add_relations_to_new_date(state_idx, month_atom, day_atom) {
@@ -56,7 +52,6 @@ function remove_date_from_model(month, day) {
     model.removeState(state_idx);
 
     console.log("removed state " + state_idx);
-    console.log(model.getStates());
 }
 
 function remove_all_dates_from_model() {
@@ -64,8 +59,65 @@ function remove_all_dates_from_model() {
     _date_to_state_dict = {};
 
     console.log("removed all states");
-    console.log("states:");
-    console.log(model.getStates());
+}
+
+function states_where_a_knows_birthday(model, agent) {
+    var true_states = [];
+    var false_states = [];
+    const know_date_wff = (agent === agent_m ? know_month_wff : know_day_wff);
+
+    model.getStates().forEach(function (s, s_idx) {
+        if (s !== null) {
+            if (MPL.truth(model, s_idx, know_date_wff)) {
+                true_states.push(Object.keys(s));
+            } else {
+                false_states.push(Object.keys(s));
+            }
+        }
+    });
+    return [true_states, false_states]
+}
+
+function states_where_a_knows_b_not_knows_birthday(model, agent) {
+    var true_states = [];
+    var false_states = []; 
+    const other_know_date_wff = (agent === agent_d ? know_month_wff : know_day_wff);
+    const know_other_not_know_date_wff = new MPL.Wff("K{" + agent + "}~" + other_know_date_wff.ascii())
+
+    model.getStates().forEach(function (s, s_idx) {
+        if (s !== null) {
+            if (MPL.truth(model, s_idx, know_other_not_know_date_wff)) {
+                true_states.push(Object.keys(s));
+            } else {
+                false_states.push(Object.keys(s));
+            }
+        }
+    });
+    return [true_states, false_states]
+}
+
+function public_announcement_one_holds() {
+    const [true_states, false_states] = states_where_a_knows_b_not_knows_birthday(model, agent_d);
+    // The states the agents considers possible should not be removed from the model
+    holds_in_true_month = !false_states.some(s => s[0] === to_month_atom(true_month));
+    return [holds_in_true_month, true_states, false_states];
+}
+
+function public_announcement_two_holds() {
+    const [true_states, false_states] = states_where_a_knows_birthday(model, agent_m);
+    holds_in_true_day = !false_states.some(s => s[1] === to_day_atom(true_day));
+    return [holds_in_true_day, true_states, false_states];
+}
+
+function public_announcement_three_holds() {
+    const [true_states, false_states] = states_where_a_knows_birthday(model, agent_d);
+    holds_in_true_month = !false_states.some(s => s[0] === to_month_atom(true_month));
+    return [holds_in_true_month, true_states, false_states];
+}
+
+function set_true_date(month, day) {
+    true_month = month;
+    true_day = day;
 }
 
 function to_month_atom(month) {

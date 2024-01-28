@@ -137,9 +137,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('set_answer_button').addEventListener('click', set_real_day_div);
 
-    function public_announcement_one_holds() {
-        return true;
-    }
+    // The following function is now in logic.js
+    // function public_announcement_one_holds() {
+    //     return true;
+    // }
 
     function add_second_model() {
         document.getElementById("graph-buttons-container-two").querySelector(".button").disabled = true;
@@ -159,7 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("graph-buttons-container-one").querySelector(".button").disabled = true;
 
         // Check for a specific condition
-        if (public_announcement_one_holds()) {
+        const [first_ann_holds, true_states, false_states] = public_announcement_one_holds();
+        if (first_ann_holds) {
             // If the condition is met, create a text message
 
             // Create a div element and assign it the class 'public-announcement-container'
@@ -220,6 +222,8 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.forEach(function(element) {
             element.classList.remove('selected');
             element.classList.add('real-day-div');
+
+            set_true_date(element.dataset.month, element.dataset.day)
         });
         document.getElementById('set_answer_button').style.display = 'none';
 
