@@ -188,6 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function add_first_announcement() {
         document.getElementById('set_answer_button').disabled = true;
         document.getElementById('add_date_button').disabled = true;
+        document.getElementById('day_dropdown').disabled = true;
+        document.getElementById('month_dropdown').disabled = true;
         document.getElementById('preset_button').disabled = true;
         document.getElementById("graph-buttons-container-one").querySelector(".button").disabled = true;
 
@@ -233,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var false_states_model_3 = [];
 
     function add_third_model() {
-        document.getElementById("graph-buttons-container-three").querySelector(".button").disabled = true;
+        document.getElementById("graph-buttons-container-four").querySelector(".button").disabled = true;
 
         var graph_visual_container_three = document.createElement("div");
         graph_visual_container_three.id = "graph-visual-container-three";
@@ -319,8 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var false_states_model_4 = [];
 
     function add_fourth_model() {
-        document.getElementById("graph-buttons-container-five").querySelector(".button").disabled = true;
-
+        document.getElementById("graph-buttons-container-six").querySelector(".button").disabled = true;
         var graph_visual_container_four = document.createElement("div");
         graph_visual_container_four.id = "graph-visual-container-four";
         graph_visual_container_four.classList.add("graph-visual-container");
@@ -353,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function add_third_announcement() {
-        document.getElementById("graph-buttons-container-four").querySelector(".button").disabled = true;
+        document.getElementById("graph-buttons-container-five").querySelector(".button").disabled = true;
 
         // Check for a specific condition
         const [second_ann_holds, true_states, false_states] = public_announcement_three_holds();
@@ -372,12 +373,12 @@ document.addEventListener('DOMContentLoaded', function() {
             container_div.appendChild(text_message);
             document.getElementById("graph-ui-container").appendChild(container_div);
 
-            var buttons_container_five = document.createElement("div");
-            buttons_container_five.id = "graph-buttons-container-five";
-            buttons_container_five.classList.add("graph-buttons-container");
-            document.getElementById("graph-ui-container").appendChild(buttons_container_five);
+            var buttons_container_six = document.createElement("div");
+            buttons_container_six.id = "graph-buttons-container-six";
+            buttons_container_six.classList.add("graph-buttons-container");
+            document.getElementById("graph-ui-container").appendChild(buttons_container_six);
 
-            add_next_button(add_fourth_model, buttons_container_five);
+            add_next_button(add_fourth_model, buttons_container_six);
         } else {
             // If the condition is not met, create the error container element
             var errorContainer = document.createElement("div");
@@ -530,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function() {
         line_div.style.top = a_center_y + 'px';
         line_div.style.width = (b_center_x - a_center_x) + 'px';
     
-        document.body.appendChild(line_div); // Consider appending to a specific container
+        document.getElementById('graph-ui-container').appendChild(line_div); // Consider appending to a specific container
     }
 
     function create_vertical_line_between_divs(a, b) {
@@ -548,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function() {
         line_div.style.top = a_center_y + 'px';
         line_div.style.height = (b_center_y - a_center_y) + 'px';
     
-        document.body.appendChild(line_div);
+        document.getElementById('graph-ui-container').appendChild(line_div);
     }
     
     function remove_date(model, month, day) {
@@ -576,19 +577,19 @@ document.addEventListener('DOMContentLoaded', function() {
         remove_all_dates_from_model();
     }
 
-    document.getElementById('remove_date_button').addEventListener('click', function() {
-        // get selected date div
-        const selected_day_div = document.querySelector('.selected');
-        if (!selected_day_div) {
-            document.getElementById('remove_date_error').style.display = 'block';
-            return;
-        } else {
-            document.getElementById('remove_date_error').style.display = 'none';
-        }
+    // document.getElementById('remove_date_button').addEventListener('click', function() {
+    //     // get selected date div
+    //     const selected_day_div = document.querySelector('.selected');
+    //     if (!selected_day_div) {
+    //         document.getElementById('remove_date_error').style.display = 'block';
+    //         return;
+    //     } else {
+    //         document.getElementById('remove_date_error').style.display = 'none';
+    //     }
         
-        remove_date(parseInt(selected_day_div.dataset.month), parseInt(selected_day_div.dataset.day));
-        compute_lines();
-    });
+    //     remove_date(parseInt(selected_day_div.dataset.month), parseInt(selected_day_div.dataset.day));
+    //     compute_lines();
+    // });
 
     document.getElementById('clear_button').addEventListener('click', function() {
         remove_lines();
@@ -596,6 +597,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // remove_all_dates();
         document.getElementById('line_explination').style.display = 'none';
         document.getElementById('add_date_button').disabled = false;
+        document.getElementById('day_dropdown').disabled = false;
+        document.getElementById('month_dropdown').disabled = false;
         document.getElementById('preset_button').disabled = false;
         document.getElementById('set_answer_button').disabled = false;
     });

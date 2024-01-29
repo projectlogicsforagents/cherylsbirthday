@@ -1,0 +1,48 @@
+/* Style the navigation bar */
+.navbar {
+    width: 100%;
+    background-color: #333; /* Change as needed */
+    overflow: auto;
+  }
+  
+  /* Navigation links */
+  .navbar a {
+    float: left;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    width: 100px; /* Width of the buttons */
+    text-align: center;
+  }
+  
+  /* Navigation links on mouse-over */
+  .navbar a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Current/active navigation link */
+  .navbar a.active {
+    background-color: #4CAF50; /* Darker shade for the active link */
+  }
+  
+  /* Style the tab content (same as before) */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+  
+  /* Style the tab links (same as before, but added a margin-top) */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    margin-top: 20px; /* Space between nav bar and tab buttons */
+  }

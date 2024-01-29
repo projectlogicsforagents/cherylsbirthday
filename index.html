@@ -5,58 +5,78 @@
     <title>Cheryl</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon"> 
     <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./navigation.css">
 </head>
 <body>
-    <div id="main-container">
-        <div id="date-input-container">
-            <p>Visualization of the logical reasoning. You can add possible dates using the fields below.</p>
+      <div class="navbar">
+        <a class="tablinks active" onclick="openTab(event, 'Introduction')">Introduction</a>
+        <a class="tablinks" onclick="openTab(event, 'Visual')">Visual</a>
+        <a class="tablinks" onclick="openTab(event, 'Explanation')">Explanation</a>
+      </div>
+      <div id="Introduction" class="tabcontent">
+        <h3>Introduction</h3>
+        <p>This is the Introduction tab content.</p>
+      </div>
+      
+      <div id="Visual" class="tabcontent" style="display: none;">
+        <div id="main-container">
+            <div id="date-input-container">
+                <p>Visualization of the logical reasoning. You can add possible dates using the fields below.</p>
+                
+                <!-- Day Dropdown -->
+                <select id="day_dropdown" class="dropdown">
+                    <!-- Options will be added dynamically -->
+                </select>
+    
+                <!-- Month Dropdown -->
+                <select id="month_dropdown" class="dropdown">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <button id="add_date_button" class="button">Add</button>
+                <div class="error_container">
+                    <span id="date_duplicate_error" class="error-message" role="alert" style="display: none;">Date already exists</span>
+                </div>
+                <p>When you are done creating all the possible dates, you can submit the real date by selecting it's box in the visual and then clicking the button "Set".</p>
+                <button id="set_answer_button" class="button">Set</button>
+                <div class="error_container">
+                    <span id="set_answer_error" class="error-message" role="alert" style="display: none;">No date selected</span>
+                </div>
+                <!-- <button id="remove_date_button" class="button">Remove</button>
+                <div class="error_container">
+                    <span id="remove_date_error" class="error-message" role="alert" style="display: none;">No date selected</span>
+                </div> -->
+                <button id="clear_button" class="button">Clear</button>
+                <button id="preset_button" class="button">Preset</button>
+                <p id="line_explination" style="display: none;">The yellow and blue lines represent what the two persons consider as possible, after they were told their half of the real date.</p>
+            </div>
             
-            <!-- Day Dropdown -->
-            <select id="day_dropdown" class="dropdown">
-                <!-- Options will be added dynamically -->
-            </select>
-
-            <!-- Month Dropdown -->
-            <select id="month_dropdown" class="dropdown">
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-            </select>
-            <button id="add_date_button" class="button">Add</button>
-            <div class="error_container">
-                <span id="date_duplicate_error" class="error-message" role="alert" style="display: none;">Date already exists</span>
+            <div id="graph-ui-container">
+                <div id="graph-visual-container-one" class="graph-visual-container"></div>
+                <div id="graph-buttons-container-one" class="graph-buttons-container"></div>
             </div>
-            <p>When you are done creating all the possible dates, you can submit the real date by selecting it's box in the visual and then clicking the button "Set".</p>
-            <button id="set_answer_button" class="button">Set</button>
-            <div class="error_container">
-                <span id="set_answer_error" class="error-message" role="alert" style="display: none;">No date selected</span>
-            </div>
-            <button id="remove_date_button" class="button">Remove</button>
-            <div class="error_container">
-                <span id="remove_date_error" class="error-message" role="alert" style="display: none;">No date selected</span>
-            </div>
-            <button id="clear_button" class="button">Clear</button>
-            <button id="preset_button" class="button">Preset</button>
-            <p id="line_explination" style="display: none;">The yellow and blue lines represent what the two persons consider as possible, after they were told their half of the real date.</p>
         </div>
-        
-        <div id="graph-ui-container">
-            <div id="graph-visual-container-one" class="graph-visual-container"></div>
-            <div id="graph-buttons-container-one" class="graph-buttons-container"></div>
-        </div>
-    </div>
+      </div>
+      
+      <div id="Explanation" class="tabcontent" style="display: none;">
+        <h3>Explanation</h3>
+        <p>This is the Explanation tab content.</p>
+      </div>
+    
     <script src="./lib/formula-parser.js"></script>
     <script src="./lib/MPL.js"></script>
     <script src="./logic.js"></script>
     <script src="./javascript.js"></script>
+    <script src="./navigation.js"></script>
 </body>
 </html>

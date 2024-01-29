@@ -24,8 +24,7 @@ p {
 
 #date-input-container {
     width: 100%;
-    height: 5vh;
-    padding: 5vh;
+    padding: 50px;
 }
 
 .dropdown {
@@ -47,6 +46,15 @@ p {
 .dropdown:focus {
     outline: none; /* Remove default focus outline */
     border-color: #999; /* Border color when focused */
+}
+
+.dropdown.disabled,
+.dropdown:disabled {
+    background-color: #f2f2f2; /* Disabled background color */
+    color: #ccc; /* Disabled text color */
+    border-color: #ccc; /* Disabled border color */
+    cursor: default; /* Default cursor for disabled state */
+    pointer-events: none; /* Prevents click events */
 }
 
 .button {
@@ -84,6 +92,7 @@ p {
 #graph-ui-container {
     height: fit-content;
     width: fit-content;
+    padding: 50px;
 }
 
 .graph-buttons-container {
