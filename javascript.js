@@ -263,6 +263,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         graph_ui_container.appendChild(graph_visual_container_three);
         compute_lines();
+
+        var buttons_container_five = document.createElement("div");
+        buttons_container_five.id = "graph-buttons-container-five";
+        buttons_container_five.classList.add("graph-buttons-container");
+        document.getElementById("graph-ui-container").appendChild(buttons_container_five);
+
+        add_next_button(add_third_announcement, document.getElementById('graph-buttons-container-five'));
     }
 
 
@@ -302,6 +309,85 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMessage.className = "error-message";
             errorMessage.setAttribute("role", "alert");
             errorMessage.textContent = "Public announcement 2 does not hold.";
+
+            errorContainer.appendChild(errorMessage);
+            document.getElementById("graph-ui-container").appendChild(errorContainer);
+        }
+    }
+
+    
+    var false_states_model_4 = [];
+
+    function add_fourth_model() {
+        document.getElementById("graph-buttons-container-five").querySelector(".button").disabled = true;
+
+        var graph_visual_container_four = document.createElement("div");
+        graph_visual_container_four.id = "graph-visual-container-four";
+        graph_visual_container_four.classList.add("graph-visual-container");
+        
+        var graph_ui_container = document.getElementById("graph-ui-container");
+        graph_visual_container_four.innerHTML = document.getElementById("graph-visual-container-three").innerHTML;
+
+        graph_visual_container_four.querySelectorAll('.possible-day-div').forEach(function(possible_day_div) {
+            // Convert dataset values to integers for comparison
+            const monthFromDiv = parseInt(possible_day_div.dataset.month);
+            const dayFromDiv = parseInt(possible_day_div.dataset.day);
+        
+            if (false_states_model_4.some(function(state) {
+                // Parse the month and day from the state, removing the 'm' and 'd' prefixes and converting to integers
+                const monthFromState = parseInt(state[0].substring(1));
+                const dayFromState = parseInt(state[1].substring(1));
+        
+                // Check if the month and day match
+                return monthFromState === monthFromDiv && dayFromState === dayFromDiv;
+            })) {
+                // Call remove_date with the month and day as integers
+                remove_date(graph_visual_container_four, monthFromDiv, dayFromDiv);
+            }
+        });
+        
+
+        graph_ui_container.appendChild(graph_visual_container_four);
+        compute_lines();
+    }
+
+
+    function add_third_announcement() {
+        document.getElementById("graph-buttons-container-four").querySelector(".button").disabled = true;
+
+        // Check for a specific condition
+        const [second_ann_holds, true_states, false_states] = public_announcement_three_holds();
+        false_states_model_4 = false_states;
+        if (second_ann_holds) {
+            // If the condition is met, create a text message
+
+            // Create a div element and assign it the class 'public-announcement-container'
+            var container_div = document.createElement("div");
+            container_div.classList.add("public-announcement-container");
+
+            var text_message = document.createElement("p");
+            text_message.textContent = "Albert: 'Now I know as well.'";
+
+            // Append the button to the container div
+            container_div.appendChild(text_message);
+            document.getElementById("graph-ui-container").appendChild(container_div);
+
+            var buttons_container_five = document.createElement("div");
+            buttons_container_five.id = "graph-buttons-container-five";
+            buttons_container_five.classList.add("graph-buttons-container");
+            document.getElementById("graph-ui-container").appendChild(buttons_container_five);
+
+            add_next_button(add_fourth_model, buttons_container_five);
+        } else {
+            // If the condition is not met, create the error container element
+            var errorContainer = document.createElement("div");
+            errorContainer.className = "error_container";
+
+            var errorMessage = document.createElement("span");
+            errorMessage.id = "next_error_message";
+            errorMessage.className = "error-message";
+            errorMessage.setAttribute("role", "alert");
+            errorMessage.textContent = "Public announcement 3 does not hold.";
 
             errorContainer.appendChild(errorMessage);
             document.getElementById("graph-ui-container").appendChild(errorContainer);
