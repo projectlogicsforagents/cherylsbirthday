@@ -142,6 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
     //     return true;
     // }
 
+    var false_states_model_2 = [];
+
     function add_second_model() {
         document.getElementById("graph-buttons-container-two").querySelector(".button").disabled = true;
 
@@ -151,16 +153,38 @@ document.addEventListener('DOMContentLoaded', function() {
         
         var graph_ui_container = document.getElementById("graph-ui-container");
         graph_visual_container_two.innerHTML = document.getElementById("graph-visual-container-one").innerHTML;
+
+        graph_visual_container_two.querySelectorAll('.possible-day-div').forEach(function(possible_day_div) {
+            // Convert dataset values to integers for comparison
+            const monthFromDiv = parseInt(possible_day_div.dataset.month);
+            const dayFromDiv = parseInt(possible_day_div.dataset.day);
+        
+            if (false_states_model_2.some(function(state) {
+                // Parse the month and day from the state, removing the 'm' and 'd' prefixes and converting to integers
+                const monthFromState = parseInt(state[0].substring(1));
+                const dayFromState = parseInt(state[1].substring(1));
+        
+                // Check if the month and day match
+                return monthFromState === monthFromDiv && dayFromState === dayFromDiv;
+            })) {
+                // Call remove_date with the month and day as integers
+                remove_date(graph_visual_container_two, monthFromDiv, dayFromDiv);
+            }
+        });
+        
+
         graph_ui_container.appendChild(graph_visual_container_two);
         compute_lines();
     }
 
 
     function add_first_announcement() {
+        document.getElementById('set_answer_button').style.display = 'none';
         document.getElementById("graph-buttons-container-one").querySelector(".button").disabled = true;
 
         // Check for a specific condition
         const [first_ann_holds, true_states, false_states] = public_announcement_one_holds();
+        false_states_model_2 = false_states;
         if (first_ann_holds) {
             // If the condition is met, create a text message
 
@@ -193,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMessage.textContent = "Public announcement 1 does not hold.";
 
             errorContainer.appendChild(errorMessage);
-            document.getElementById("graph-buttons-container-one").appendChild(errorContainer);
+            document.getElementById("graph-ui-container").appendChild(errorContainer);
         }
     }
 
@@ -225,13 +249,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             set_true_date(element.dataset.month, element.dataset.day)
         });
-        document.getElementById('set_answer_button').style.display = 'none';
 
         compute_lines();
         // Set line explination to visible
         document.getElementById('line_explination').style.display = 'block';
 
-        add_next_button(add_first_announcement, document.getElementById('graph-buttons-container-one'));
+        if (document.querySelector('#graph-buttons-container-one .button') === null) {
+            add_next_button(add_first_announcement, document.getElementById('graph-buttons-container-one'));
+        }
     }
 
     function remove_lines() {
@@ -353,9 +378,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(line_div);
     }
     
-    function remove_date(month, day) {
+    function remove_date(model, month, day) {
         console.log(month, day);
-        const day_div = document.querySelector(`.possible-day-div[data-month='${month}'][data-day='${day}']`);
+        const day_div = model.querySelector(`.possible-day-div[data-month='${month}'][data-day='${day}']`);
         day_div.classList.remove('possible-day-div');
         day_div.classList.remove('selected');
         day_div.classList.add('removed-day-div');
@@ -394,8 +419,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('clear_button').addEventListener('click', function() {
         remove_lines();
-        remove_all_dates();
+        document.getElementById('graph-ui-container').innerHTML = "<div id='graph-visual-container-one' class='graph-visual-container'></div><div id='graph-buttons-container-one' class='graph-buttons-container'></div>";
+        // remove_all_dates();
         document.getElementById('line_explination').style.display = 'none';
+        document.getElementById('set_answer_button').style.display = 'block';
     });
 
     document.getElementById('preset_button').addEventListener('click', function() {
