@@ -179,7 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function add_first_announcement() {
-        document.getElementById('set_answer_button').style.display = 'none';
+        document.getElementById('set_answer_button').disabled = true;
+        document.getElementById('add_date_button').disabled = true;
+        document.getElementById('preset_button').disabled = true;
         document.getElementById("graph-buttons-container-one").querySelector(".button").disabled = true;
 
         // Check for a specific condition
