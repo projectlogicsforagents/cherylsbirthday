@@ -175,6 +175,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         graph_ui_container.appendChild(graph_visual_container_two);
         compute_lines();
+
+        var buttons_container_three = document.createElement("div");
+        buttons_container_three.id = "graph-buttons-container-three";
+        buttons_container_three.classList.add("graph-buttons-container");
+        document.getElementById("graph-ui-container").appendChild(buttons_container_three);
+
+        add_next_button(add_second_announcement, document.getElementById('graph-buttons-container-three'));
     }
 
 
@@ -217,6 +224,84 @@ document.addEventListener('DOMContentLoaded', function() {
             errorMessage.className = "error-message";
             errorMessage.setAttribute("role", "alert");
             errorMessage.textContent = "Public announcement 1 does not hold.";
+
+            errorContainer.appendChild(errorMessage);
+            document.getElementById("graph-ui-container").appendChild(errorContainer);
+        }
+    }
+
+    var false_states_model_3 = [];
+
+    function add_third_model() {
+        document.getElementById("graph-buttons-container-three").querySelector(".button").disabled = true;
+
+        var graph_visual_container_three = document.createElement("div");
+        graph_visual_container_three.id = "graph-visual-container-three";
+        graph_visual_container_three.classList.add("graph-visual-container");
+        
+        var graph_ui_container = document.getElementById("graph-ui-container");
+        graph_visual_container_three.innerHTML = document.getElementById("graph-visual-container-two").innerHTML;
+
+        graph_visual_container_three.querySelectorAll('.possible-day-div').forEach(function(possible_day_div) {
+            // Convert dataset values to integers for comparison
+            const monthFromDiv = parseInt(possible_day_div.dataset.month);
+            const dayFromDiv = parseInt(possible_day_div.dataset.day);
+        
+            if (false_states_model_3.some(function(state) {
+                // Parse the month and day from the state, removing the 'm' and 'd' prefixes and converting to integers
+                const monthFromState = parseInt(state[0].substring(1));
+                const dayFromState = parseInt(state[1].substring(1));
+        
+                // Check if the month and day match
+                return monthFromState === monthFromDiv && dayFromState === dayFromDiv;
+            })) {
+                // Call remove_date with the month and day as integers
+                remove_date(graph_visual_container_three, monthFromDiv, dayFromDiv);
+            }
+        });
+        
+
+        graph_ui_container.appendChild(graph_visual_container_three);
+        compute_lines();
+    }
+
+
+    function add_second_announcement() {
+        document.getElementById("graph-buttons-container-three").querySelector(".button").disabled = true;
+
+        // Check for a specific condition
+        const [second_ann_holds, true_states, false_states] = public_announcement_two_holds();
+        false_states_model_3 = false_states;
+        if (second_ann_holds) {
+            // If the condition is met, create a text message
+
+            // Create a div element and assign it the class 'public-announcement-container'
+            var container_div = document.createElement("div");
+            container_div.classList.add("public-announcement-container");
+
+            var text_message = document.createElement("p");
+            text_message.textContent = "Bernard: 'First I did't know, but now I do.'";
+
+            // Append the button to the container div
+            container_div.appendChild(text_message);
+            document.getElementById("graph-ui-container").appendChild(container_div);
+
+            var buttons_container_four = document.createElement("div");
+            buttons_container_four.id = "graph-buttons-container-four";
+            buttons_container_four.classList.add("graph-buttons-container");
+            document.getElementById("graph-ui-container").appendChild(buttons_container_four);
+
+            add_next_button(add_third_model, buttons_container_four);
+        } else {
+            // If the condition is not met, create the error container element
+            var errorContainer = document.createElement("div");
+            errorContainer.className = "error_container";
+
+            var errorMessage = document.createElement("span");
+            errorMessage.id = "next_error_message";
+            errorMessage.className = "error-message";
+            errorMessage.setAttribute("role", "alert");
+            errorMessage.textContent = "Public announcement 2 does not hold.";
 
             errorContainer.appendChild(errorMessage);
             document.getElementById("graph-ui-container").appendChild(errorContainer);
@@ -424,7 +509,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('graph-ui-container').innerHTML = "<div id='graph-visual-container-one' class='graph-visual-container'></div><div id='graph-buttons-container-one' class='graph-buttons-container'></div>";
         // remove_all_dates();
         document.getElementById('line_explination').style.display = 'none';
-        document.getElementById('set_answer_button').style.display = 'block';
+        document.getElementById('add_date_button').disabled = false;
+        document.getElementById('preset_button').disabled = false;
+        document.getElementById('set_answer_button').disabled = false;
     });
 
     document.getElementById('preset_button').addEventListener('click', function() {
