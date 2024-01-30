@@ -183,6 +183,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("graph-ui-container").appendChild(buttons_container_three);
 
         add_next_button(add_second_announcement, document.getElementById('graph-buttons-container-three'));
+
+        graph_visual_container_two.scrollIntoView({ behavior: 'smooth' });
     }
 
     function disable_main_ui() {
@@ -232,6 +234,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("graph-ui-container").appendChild(buttons_container_two);
 
             add_next_button(add_second_model, buttons_container_two);
+
+            text_message.scrollIntoView({ behavior: 'smooth' });
         } else {
             // If the condition is not met, create the error container element
             var errorContainer = document.createElement("div");
@@ -245,6 +249,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             errorContainer.appendChild(errorMessage);
             document.getElementById("graph-ui-container").appendChild(errorContainer);
+
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
         }
     }
 
@@ -288,6 +294,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("graph-ui-container").appendChild(buttons_container_five);
 
         add_next_button(add_third_announcement, document.getElementById('graph-buttons-container-five'));
+
+        graph_visual_container_three.scrollIntoView({ behavior: 'smooth' });
     }
 
 
@@ -317,6 +325,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("graph-ui-container").appendChild(buttons_container_four);
 
             add_next_button(add_third_model, buttons_container_four);
+
+            text_message.scrollIntoView({ behavior: 'smooth' });
         } else {
             // If the condition is not met, create the error container element
             var errorContainer = document.createElement("div");
@@ -330,6 +340,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             errorContainer.appendChild(errorMessage);
             document.getElementById("graph-ui-container").appendChild(errorContainer);
+
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
         }
     }
 
@@ -366,6 +378,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         graph_ui_container.appendChild(graph_visual_container_four);
         compute_lines();
+
+        graph_visual_container_four.scrollIntoView({ behavior: 'smooth' });
     }
 
 
@@ -395,6 +409,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("graph-ui-container").appendChild(buttons_container_six);
 
             add_next_button(add_fourth_model, buttons_container_six);
+
+            text_message.scrollIntoView({ behavior: 'smooth' });
         } else {
             // If the condition is not met, create the error container element
             var errorContainer = document.createElement("div");
@@ -408,6 +424,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             errorContainer.appendChild(errorMessage);
             document.getElementById("graph-ui-container").appendChild(errorContainer);
+
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
         }
     }
 

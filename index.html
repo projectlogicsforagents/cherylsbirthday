@@ -10,6 +10,7 @@
 <body>
       <div class="navbar">
         <a id="introduction-tab" class="tablinks active" onclick="openTab(event, 'Introduction')">Introduction</a>
+        <a id="example-tab" class="tablinks" onclick="openTab(event, 'Example')">Example</a>
         <a id="visual-tab" class="tablinks" onclick="openTab(event, 'Visual')">Visual</a>
         <a id="explination-tab" class="tablinks" onclick="openTab(event, 'Explanation')">Explanation</a>
       </div>
@@ -49,8 +50,11 @@
             </ol>
         </div>
       </div>
+      <div id="Example" class="tabcontent">
+        <iframe src="./Cheryl's Birthday Example.pdf" width="600" height="400"></iframe>
+      </div>
       
-      <div id="Visual" class="tabcontent" style="display: none;">
+      <div id="Visual" class="tabcontent">
         <div id="main-container">
             <div id="date-input-container">
                 <p>Visualization of the logical reasoning. You can add possible dates using the fields below.</p>
