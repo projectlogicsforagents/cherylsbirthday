@@ -84,6 +84,10 @@ p {
     padding: 50px;
 }
 
+#references-container {
+    padding: 50px;
+}
+
 #graph-visual-container {
     height: fit-content;
     width: fit-content;
