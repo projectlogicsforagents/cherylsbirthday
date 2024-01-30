@@ -620,9 +620,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // remove_all_dates();
         document.getElementById('line_explination').style.display = 'none';
         enable_main_ui();
+        remove_all_dates_from_model();
     }
 
     document.getElementById('preset_button').addEventListener('click', function() {
+        reset();
         // List of all possible dates from the riddle
         const dates = [
             { month: 5, day: 15 }, { month: 5, day: 16 }, { month: 5, day: 19 },
