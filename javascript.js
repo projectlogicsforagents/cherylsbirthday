@@ -620,6 +620,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // remove_all_dates();
         document.getElementById('line_explination').style.display = 'none';
         enable_main_ui();
+        remove_all_dates_from_model();
     }
 
     document.getElementById('preset_button').addEventListener('click', function() {
