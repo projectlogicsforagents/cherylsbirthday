@@ -129,18 +129,46 @@
       <div id="Conclusion" class="tabcontent">
         <div id="conclusion-container">
             <h2>Conclusion</h2>
-            <p>We researched for what set of dates the puzzle would unfold according to the same story line. 
-                We looked all the possible sets that one can create using 10 different dates. We found that 
-                there are certain conditions for the public announcements to hold. Our application shows this 
-                in a visual, where you can pick any set of dates and see whether the puzzle unfolds with the 
-                public announcements from the original example.</p>
-            <h2>Future work</h2>
-            <p>The original puzzle ends where the observer also finds out what the answer is. We did not formulate 
-                this into a restriction onto the model. This is something that still could be looked into.
+            <p>The aim of our project was to determine restrictions on the set of birthdays Cheryl gives Albert and
+                Bernard. We found that the following conditions must hold:</p>
+            <ol>
+                <li>
+                    There are at least two states that share the true month (the true month is non-unique).
+                </li>
+                <li>
+                    For every state that has the true month, there is another state (with a different month) that has
+                    the same day (the true month has no unique days)
+                </li>
+                <li>
+                    All other states with the same day as the true state either have a unique month or share a month
+                    with a state with a unique day.
+                </li>
+                <li>
+                    After the first public announcement, the true day is unique (ensured by previous bullet point)
+                </li>
+                <li>
+                    Every day in the true month (that is not the true day) shares a day with another month which
+                    is non-unique and has no unique days.
+                </li>
+            </ol>
+            <p>
+                We furthermore wanted to implement code that checks whether the public announcements are true for
+                a given set of dates, and this was achieved as seen in the tab "Visual".
             </p>
             <p>
-                Future research could also be done into considering the sequel of Cheryl's birthday puzzle where there 
-                is a third agent who is told Cheryl's birth year.
+                Some limitations of the project are that we considered the conditions needed for Albert and Bernard
+                to know Cheryl’s birthday, but not for an outsider to know Cheryl’s birthday (which is possible in the
+                original puzzle) which is something we could have looked into. Furthermore, the conditions have been
+                shown to be necessary for the puzzle to be solveable, but more work would need to be done to show
+                that they are also sufficient.
+            </p>
+            <p>
+                With more time we could have also included more examples in the section "Extension" to make the
+                theory clearer.
+            </p>
+            <p>
+                Future research could also be done into considering the sequel of Cheryl’s birthday puzzle where there
+                is a third agent who is told Cheryl’s birth year.
             </p>
         </div>
       </div>
