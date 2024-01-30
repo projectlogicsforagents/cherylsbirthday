@@ -1,12 +1,12 @@
 body {
-    font-family: roboto;
+    font-family: sans-serif;
     font-size: 12px; 
     color: #333; 
     background: #f8f8f8;
 }
 
 p {
-    font-family: roboto;
+    font-family: sans-serif;
     font-size: 16px;
     color: #333;
     text-align: justify;
@@ -87,6 +87,11 @@ p {
 #references-container {
     padding: 50px;
 }
+
+#conclusion-container {
+    padding: 50px;
+}
+
 
 #graph-visual-container {
     height: fit-content;
@@ -196,6 +201,7 @@ ol {
     counter-reset: list-counter;
     padding-left: 0; /* Removes padding */
     margin-left: 0; /* Adjusts margin to ensure list starts from the edge */
+    font-size: 16px;
   }
   ol li {
     margin: 0; /* Ensures no additional space around list items */
