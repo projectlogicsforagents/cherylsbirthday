@@ -206,3 +206,8 @@ ol {
     left: 0; /* Positions the label at the start of the list item */
     margin-right: 25px; /* Adds space between the label and the list item text */
   }
+
+  object {
+    width: 100%;
+    height: 100%;
+}
