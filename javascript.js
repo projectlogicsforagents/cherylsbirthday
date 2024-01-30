@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add the date as a state to the Kripke model
         add_date_to_model(month, day);
         compute_lines();
+        document.getElementById('set_answer_button').disabled = false;
     }
 
     function remove_selected() {
@@ -195,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function enable_main_ui() {
-        document.getElementById('set_answer_button').disabled = false;
+        document.getElementById('set_answer_button').disabled = true;
         document.getElementById('add_date_button').disabled = false;
         document.getElementById('day_dropdown').disabled = false;
         document.getElementById('month_dropdown').disabled = false;
@@ -608,6 +609,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         delete_date(parseInt(selected_day_div.dataset.month), parseInt(selected_day_div.dataset.day));
         compute_lines();
+        // if there are no more dates, disable the set answer button
+        if (document.querySelector('.possible-day-div') === null) {
+            document.getElementById('set_answer_button').disabled = true;
+        }
     });
 
     document.getElementById('clear_button').addEventListener('click', reset);
@@ -633,6 +638,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dates.forEach(date => add_date(date.month, date.day));
 
         compute_lines();
+        document.getElementById('set_answer_button').disabled = false;
     });
 
     document.getElementById('random_button').addEventListener('click', function() {
@@ -659,6 +665,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dates.forEach(date => add_date(date.month, date.day));
 
         compute_lines();
+        document.getElementById('set_answer_button').disabled = false;
     });
 
     
