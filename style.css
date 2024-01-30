@@ -13,6 +13,13 @@ p {
     margin-bottom: 0px;
 }
 
+header .header-item {
+    display: flex;
+    justify-content: center; /* Centers items on the main-axis */
+    align-items: center; /* Centers items on the cross-axis */
+
+}
+
 #main-container {
     display: grid;
     grid-template-columns: 300px 1fr;
