@@ -184,13 +184,28 @@ document.addEventListener('DOMContentLoaded', function() {
         add_next_button(add_second_announcement, document.getElementById('graph-buttons-container-three'));
     }
 
-
-    function add_first_announcement() {
+    function disable_main_ui() {
         document.getElementById('set_answer_button').disabled = true;
         document.getElementById('add_date_button').disabled = true;
         document.getElementById('day_dropdown').disabled = true;
         document.getElementById('month_dropdown').disabled = true;
         document.getElementById('preset_button').disabled = true;
+        document.getElementById('random_button').disabled = true;
+        document.getElementById('remove_date_button').disabled = true;
+    }
+
+    function enable_main_ui() {
+        document.getElementById('set_answer_button').disabled = false;
+        document.getElementById('add_date_button').disabled = false;
+        document.getElementById('day_dropdown').disabled = false;
+        document.getElementById('month_dropdown').disabled = false;
+        document.getElementById('preset_button').disabled = false;
+        document.getElementById('random_button').disabled = false;
+        document.getElementById('remove_date_button').disabled = false;
+    }
+
+    function add_first_announcement() {
+        disable_main_ui();
         document.getElementById("graph-buttons-container-one").querySelector(".button").disabled = true;
 
         // Check for a specific condition
@@ -562,6 +577,12 @@ document.addEventListener('DOMContentLoaded', function() {
         remove_date_from_model(month, day);
     }
 
+    function delete_date(month, day) {
+        const day_div = document.querySelector(`.possible-day-div[data-month='${month}'][data-day='${day}']`);
+        day_div.remove();
+        remove_date_from_model(month, day);
+    }
+
     function remove_all_dates() {
         const day_divs = document.querySelectorAll('.day-div');
         
@@ -577,31 +598,29 @@ document.addEventListener('DOMContentLoaded', function() {
         remove_all_dates_from_model();
     }
 
-    // document.getElementById('remove_date_button').addEventListener('click', function() {
-    //     // get selected date div
-    //     const selected_day_div = document.querySelector('.selected');
-    //     if (!selected_day_div) {
-    //         document.getElementById('remove_date_error').style.display = 'block';
-    //         return;
-    //     } else {
-    //         document.getElementById('remove_date_error').style.display = 'none';
-    //     }
+    document.getElementById('remove_date_button').addEventListener('click', function() {
+        // get selected date div
+        const selected_day_div = document.querySelector('.selected');
+        if (!selected_day_div) {
+            document.getElementById('remove_date_error').style.display = 'block';
+            return;
+        } else {
+            document.getElementById('remove_date_error').style.display = 'none';
+        }
         
-    //     remove_date(parseInt(selected_day_div.dataset.month), parseInt(selected_day_div.dataset.day));
-    //     compute_lines();
-    // });
+        delete_date(parseInt(selected_day_div.dataset.month), parseInt(selected_day_div.dataset.day));
+        compute_lines();
+    });
 
-    document.getElementById('clear_button').addEventListener('click', function() {
+    document.getElementById('clear_button').addEventListener('click', reset);
+    
+    function reset() {
         remove_lines();
         document.getElementById('graph-ui-container').innerHTML = "<div id='graph-visual-container-one' class='graph-visual-container'></div><div id='graph-buttons-container-one' class='graph-buttons-container'></div>";
         // remove_all_dates();
         document.getElementById('line_explination').style.display = 'none';
-        document.getElementById('add_date_button').disabled = false;
-        document.getElementById('day_dropdown').disabled = false;
-        document.getElementById('month_dropdown').disabled = false;
-        document.getElementById('preset_button').disabled = false;
-        document.getElementById('set_answer_button').disabled = false;
-    });
+        enable_main_ui();
+    }
 
     document.getElementById('preset_button').addEventListener('click', function() {
         // List of all possible dates from the riddle
@@ -616,5 +635,29 @@ document.addEventListener('DOMContentLoaded', function() {
         dates.forEach(date => add_date(date.month, date.day));
     });
 
+    document.getElementById('random_button').addEventListener('click', function() {
+        // List of random dates
+        const dates = [];
+        const size = 10; // Desired size of the array
 
+        while (dates.length < size) {
+            const month = Math.floor(Math.random() * 6) + 1; // Generate a random month (1-12)
+            const day = Math.floor(Math.random() * 15) + 1; // Generate a random day (1-31)
+            const date = { month, day };
+
+            // Check if the generated date already exists in the array
+            const exists = dates.some(d => d.month === date.month && d.day === date.day);
+
+            if (!exists) {
+                dates.push(date); // Add the date if it's unique
+            }
+        }
+
+        reset();
+
+        // Adding each date using the add_date function
+        dates.forEach(date => add_date(date.month, date.day));
+    });
+
+    
 });
