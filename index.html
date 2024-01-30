@@ -9,13 +9,45 @@
 </head>
 <body>
       <div class="navbar">
-        <a class="tablinks active" onclick="openTab(event, 'Introduction')">Introduction</a>
-        <a class="tablinks" onclick="openTab(event, 'Visual')">Visual</a>
-        <a class="tablinks" onclick="openTab(event, 'Explanation')">Explanation</a>
+        <a id="introduction-tab" class="tablinks active" onclick="openTab(event, 'Introduction')">Introduction</a>
+        <a id="visual-tab" class="tablinks" onclick="openTab(event, 'Visual')">Visual</a>
+        <a id="explination-tab" class="tablinks" onclick="openTab(event, 'Explanation')">Explanation</a>
       </div>
       <div id="Introduction" class="tabcontent">
-        <h3>Introduction</h3>
-        <p>This is the Introduction tab content.</p>
+        <div id="introduction-container">
+            <h3>Introduction</h3>
+            <p>Our project aims to apply Kripke’s epistemic logic to Cheryl’s birthday puzzle. This puzzle was ini-
+                tially seen at the Singapore and Asian Schools Math Olympiad [1].
+            </p>
+            <p>
+                The general setting of the puzzle includes 3 people: Albert, Bernard, and Cheryl. It is common knowl-
+                edge that everyone tells the truth and is a perfect logician. Albert and Bernard need to determine
+                when Cheryl’s birthday is, and she initially gives them 10 possible dates: May 15, May 16, May 19,
+                June 17, June 18, July 14, July 16, August 14, August 15, and August 17. Cheryl then tells Albert
+                the month and Bernard the day. Albert and Bernard then make the following public announcements:
+            </p>    
+            <p>
+                Albert: “I don’t know when Cheryl’s birthday is, but I know that you (Bernard) don’t know either.”
+                Bernard: “At first I didn’t know when Cheryl’s birthday is, but now I know.”
+                Albert: “Now I also know when Cheryl’s birthday is.”
+            </p>
+            <p>
+                The puzzle then asks us to determine Cheryl’s birthday based on the aforementioned knowledge ex-
+                change between agents [1]
+            </p>
+            <h3>References</h3>
+            <ol>
+                <li>Hans van Ditmarsch et al. “Cheryl’s Birthday”. In: Proceedings Sixteenth Conference on Theoret-
+                    ical Aspects of Rationality and Knowledge, Liverpool, UK, 24-26 July 2017. Ed. by Jérôme Lang.
+                    Vol. 251. Electronic Proceedings in Theoretical Computer Science. Open Publishing Association,
+                    2017, pp. 1–9. doi: 10.4204/EPTCS.251.1.</li>
+                <li>Hans P van Ditmarsch, Ji Ruan, and Rineke Verbrugge. “Sum and product in dynamic epistemic
+                    logic”. In: Journal of Logic and Computation 18.4 (2008), pp. 563–588.</li>
+                <li>Hans Van Ditmarsch, Wiebe van Der Hoek, and Barteld Kooi. Dynamic epistemic logic. Vol. 337.
+                    Springer Science & Business Media, 2007.</li>
+                <!-- Add more items as needed -->
+            </ol>
+        </div>
       </div>
       
       <div id="Visual" class="tabcontent" style="display: none;">

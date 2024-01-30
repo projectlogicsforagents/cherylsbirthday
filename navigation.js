@@ -20,6 +20,6 @@ function openTab(evt, tabName) {
   }
   
   // Optional: Add event listeners on window load to set a default active tab
-//   window.onload = function() {
-//     document.querySelector(".tablinks").click();
-//   };
+  window.onload = function() {
+    document.getElementById("introduction-tab").click();
+  };

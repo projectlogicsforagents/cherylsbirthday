@@ -80,7 +80,9 @@ p {
     pointer-events: none; /* Prevents click events */
 }
 
-
+#introduction-container {
+    padding: 50px;
+}
 
 #graph-visual-container {
     height: fit-content;
@@ -185,3 +187,22 @@ p {
     font-weight: bold;
 }
 
+ol {
+    list-style-type: none;
+    counter-reset: list-counter;
+    padding-left: 0; /* Removes padding */
+    margin-left: 0; /* Adjusts margin to ensure list starts from the edge */
+  }
+  ol li {
+    margin: 0; /* Ensures no additional space around list items */
+    padding: 0; /* Adjusts padding to ensure text alignment */
+    position: relative; /* Needed for absolute positioning of the label */
+    padding-left: 50px; /* Shifts entire content of the list item to the right */
+  }
+  ol li::before {
+    counter-increment: list-counter;
+    content: "[" counter(list-counter) "] ";
+    position: absolute;
+    left: 0; /* Positions the label at the start of the list item */
+    margin-right: 25px; /* Adds space between the label and the list item text */
+  }
