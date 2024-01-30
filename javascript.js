@@ -596,7 +596,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function delete_date(month, day) {
         const day_div = document.querySelector(`.possible-day-div[data-month='${month}'][data-day='${day}']`);
-        day_div.remove();
+        day_div.classList.remove('possible-day-div');
+        day_div.classList.remove('selected');
+        day_div.classList.add('placeholder-day-div');
+        day_div.innerHTML = '';
         remove_date_from_model(month, day);
     }
 
