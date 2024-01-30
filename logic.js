@@ -78,15 +78,21 @@ function states_where_a_knows_birthday(model, agent) {
     return [true_states, false_states]
 }
 
+// Also checks that "a does not know birthday"
 function states_where_a_knows_b_not_knows_birthday(model, agent) {
     var true_states = [];
     var false_states = []; 
+    const not_know_date_wff = agent === agent_m ? new MPL.Wff("~" + know_month_wff.ascii()) : new MPL.Wff("~" + know_day_wff.ascii());
+
     const other_know_date_wff = (agent === agent_d ? know_month_wff : know_day_wff);
-    const know_other_not_know_date_wff = new MPL.Wff("K{" + agent + "}~" + other_know_date_wff.ascii())
+    const know_other_not_know_date_wff = new MPL.Wff("K{" + agent + "}~" + other_know_date_wff.ascii());
+
+    const final_wff = new MPL.Wff(not_know_date_wff.ascii() + " & " + know_other_not_know_date_wff.ascii());
+    console.log(final_wff.ascii());
 
     model.getStates().forEach(function (s, s_idx) {
         if (s !== null) {
-            if (MPL.truth(model, s_idx, know_other_not_know_date_wff)) {
+            if (MPL.truth(model, s_idx, final_wff)) {
                 true_states.push(Object.keys(s));
             } else {
                 false_states.push(Object.keys(s));
